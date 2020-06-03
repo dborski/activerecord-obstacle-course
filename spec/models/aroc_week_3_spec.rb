@@ -47,7 +47,9 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-
+    names = Order.joins(:order_items => :item)
+                 .where("orders.id = '#{@order_12.id}'")
+                 .pluck('items.name')
     # ------------------------------------------------------------
 
     # Expectation
