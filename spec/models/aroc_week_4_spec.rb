@@ -50,7 +50,8 @@ describe 'ActiveRecord Obstacle Course, Week 4' do
     # -----------------------------------------------------------
 
     # ------------------ Improved Solution ----------------------
-    #  Solution goes here
+    orders = Order.joins(:order_items => :item)
+                  .where("items.id = '#{@item_4.id}'")
     # -----------------------------------------------------------
 
     # Expectation
