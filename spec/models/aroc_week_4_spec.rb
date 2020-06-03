@@ -68,7 +68,8 @@ describe 'ActiveRecord Obstacle Course, Week 4' do
     # -----------------------------------------------------------
 
     # ------------------ Improved Solution ----------------------
-    #  Solution goes here
+    orders = Order.joins(:order_items => :item)
+                  .where("orders.user_id = '#{@user_2.id}' AND items.id = '#{@item_4.id}'")
     # -----------------------------------------------------------
 
     # Expectation
