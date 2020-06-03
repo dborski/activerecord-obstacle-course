@@ -15,11 +15,12 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     expected_result = [@order_3, @order_15, @order_9, @order_12]
 
     # ----------------------- Using Ruby -------------------------
-    orders_of_user_3 = Order.all.select { |order| order.user_id == @user_3.id }
+    # orders_of_user_3 = Order.all.select { |order| order.user_id == @user_3.id }
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    orders_of_user_3 = Order.joins(:user)
+                            .where('users.id = ?', @user_3.id)
     # ------------------------------------------------------------
 
     # Expectation
@@ -38,7 +39,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    orders = Order.order(amount: :desc)
     # ------------------------------------------------------------
 
     # Expectation
@@ -57,7 +58,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    orders = Order.order(amount: :asc)
     # ------------------------------------------------------------
 
     # Expectation
@@ -76,7 +77,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    # items = Item.except('items.id != ? AND items.id != ? AND items.id != ?', @item_2.id, @item_5.id, @item_6.id)
     # ------------------------------------------------------------
 
     # Expectation
@@ -92,7 +93,9 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    Order.joins(:items)
+         .select(:items)
+         .order('items.name')
     # ------------------------------------------------------------
 
     # Expectation
@@ -107,7 +110,8 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    names = Item.order(:name)
+                .pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
@@ -144,7 +148,9 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    names = Order.joins(:items)
+                 .select(:items)
+                 .pluck('items.name')
     # ------------------------------------------------------------
 
     # Expectation
